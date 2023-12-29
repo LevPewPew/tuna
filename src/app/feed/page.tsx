@@ -1,12 +1,15 @@
-"use client";
+import { sql } from "@vercel/postgres";
 
-import { Button } from "~/components/button";
+export default async function Feed({ params }: { params: { user: string } }): Promise<JSX.Element> {
+  const { rows } = await sql`SELECT * from TEST`;
 
-export default function Feed() {
   return (
     <div>
-      <h1>FEED</h1>
-      <Button onClick={() => alert("foobar")}>DOES NOTHING</Button>
+      {rows.map((row) => (
+        <div key={row.id}>
+          {row.id} - {row.val}
+        </div>
+      ))}
     </div>
   );
 }
