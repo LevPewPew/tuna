@@ -1,29 +1,29 @@
 import { sql } from "@vercel/postgres";
 import { db } from "~/database";
 import { UsersTable, User, NewUser } from "~/database/schema";
+import { faker } from "@faker-js/faker";
 
-const newUsers: NewUser[] = [
-  {
-    name: "Guillermo Rauch",
-    email: "rauchg@vercel.com",
-    image:
-      "https://images.ctfassets.net/e5382hct74si/2P1iOve0LZJRZWUzfXpi9r/9d4d27765764fb1ad7379d7cbe5f1043/ucxb4lHy_400x400.jpg",
-  },
-  {
-    name: "Lee Robinson",
-    email: "lee@vercel.com",
-    image:
-      "https://images.ctfassets.net/e5382hct74si/4BtM41PDNrx4z1ml643tdc/7aa88bdde8b5b7809174ea5b764c80fa/adWRdqQ6_400x400.jpg",
-  },
-  {
-    name: "Steven Tey",
-    email: "stey@vercel.com",
-    image:
-      "https://images.ctfassets.net/e5382hct74si/4QEuVLNyZUg5X6X4cW4pVH/eb7cd219e21b29ae976277871cd5ca4b/profile.jpg",
-  },
-];
+function createBlankArray(length: number) {
+  const blankArray = Array(length).fill(undefined);
+
+  return blankArray;
+}
+
+// TODO use faker unique to ensure no dupes as email
+const newUsers: NewUser[] = createBlankArray(20).map(() => {
+  const fakeUser: NewUser = {
+    name: faker.internet.userName(),
+    email: faker.internet.email(),
+  };
+
+  return fakeUser;
+});
 
 export async function seed() {
+  const dropTable = await sql.query(`
+    DROP TABLE users;
+  `);
+
   // Create table with raw SQL
   const createTable = await sql.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -40,6 +40,7 @@ export async function seed() {
   console.log(`Seeded ${insertedUsers.length} users`);
 
   return {
+    dropTable,
     createTable,
     insertedUsers,
   };
