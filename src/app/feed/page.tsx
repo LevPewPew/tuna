@@ -1,4 +1,4 @@
-import { UsersTable } from "~/database/drizzle";
+import { UsersTable } from "~/database/schema";
 import { db, seed } from "~/database";
 
 export default async function Feed(): Promise<JSX.Element> {

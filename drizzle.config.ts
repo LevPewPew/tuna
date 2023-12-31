@@ -1,14 +1,17 @@
-// TODO get drizzle studio command working
-export {};
+// TODO use env var
+import type { Config } from "drizzle-kit";
+// import * as dotenv from "dotenv";
+// dotenv.config();
 
-// import { defineConfig } from "drizzle-kit";
-
-// export default defineConfig({
-//   schema: "./schema.ts",
-//   driver: "pg",
-//   dbCredentials: {
-//     connectionString: process.env.POSTGRES_URL as string,
-//   },
-//   verbose: true,
-//   strict: true,
-// });
+export default {
+  schema: "./src/database/schema/index.ts",
+  out: "./drizzle",
+  driver: "pg",
+  dbCredentials: {
+    connectionString:
+      "postgres://default:7xqfbDQO1WzZ@ep-royal-mode-66208660-pooler.ap-southeast-1.postgres.vercel-storage.com/verceldb" +
+      "?sslmode=require",
+  },
+  verbose: true,
+  strict: true,
+} satisfies Config;

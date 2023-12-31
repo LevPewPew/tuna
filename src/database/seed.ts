@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { db } from "~/database";
-import { UsersTable, User, NewUser } from "./drizzle";
+import { UsersTable, User, NewUser } from "~/database/schema";
 
 const newUsers: NewUser[] = [
   {
