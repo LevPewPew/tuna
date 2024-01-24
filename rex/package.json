@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:admin": "prisma studio",
+    "db:seed:dev": "prisma db seed -- --environment dev"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +16,11 @@
     "prisma": "^5.7.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "5.7.1"
+  },
+  "prisma": {
+    "seed": "ts-node seed/main.ts"
   }
 }
